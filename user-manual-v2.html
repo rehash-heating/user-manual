@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReHash Heating - Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .manual-header {
+            background: linear-gradient(135deg, #f7931a 0%, #ff6b35 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .manual-header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .manual-header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ff6b35;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .warning-box h2 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box h2::before {
+            content: "⚠️";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .warning-box ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+        
+        .warning-box li {
+            margin: 8px 0;
+        }
+        
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        h2 {
+            color: #f7931a;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #f7931a;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #f7931a;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .step h3 {
+            color: #f7931a;
+            margin-top: 0;
+        }
+        
+        code {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        
+        .info-box p {
+            color: #0c5aa6;
+            margin: 5px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin: 10px 0;
+        }
+        
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .specs-table th {
+            background: #f7931a;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .specs-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .disclaimer {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .disclaimer h2 {
+            color: #721c24;
+            border-bottom-color: #721c24;
+        }
+        
+        .disclaimer p {
+            color: #721c24;
+            margin: 10px 0;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 10px;
+            }
+            
+            .manual-header {
+                background: #f7931a;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="manual-header">
+        <img src="rehash-logo.png" alt="ReHash Heating Logo" style="max-width: 200px; margin-bottom: 15px;">
+        <h1>ReHash Heating</h1>
+        <p>Single board S19 Setup and Operation Guide</p>
+    </div>
+
+    <div class="warning-box">
+        <h2>Important Safety Information - Read Before Use</h2>
+        <ul>
+            <li><strong>Do NOT block airflow.</strong> Keep at least 12 inches of clearance on all sides. Never place objects on top of or in front of the air vents.</li>
+            <li><strong>Use ONLY the included power cord.</strong> Do not use extension cords, power strips, or adapters.</li>
+            <li><strong>Electrical circuit capacity:</strong> These devices draw significant power. Do not exceed 80% of your circuit's capacity (typically 12A on a 15A circuit or 16A on a 20A circuit). Consider other devices on the same circuit.</li>
+            <li><strong>Hot surface warning:</strong> The heatsink and exhaust air will be hot during operation. Keep away from flammable materials.</li>
+            <li><strong>Do not operate in wet or humid environments.</strong> For indoor use only in dry locations.</li>
+            <li><strong>Unplug when not in use.</strong> Always disconnect power before cleaning or maintenance.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>What's in the Box</h2>
+        <ul>
+            <li>Slim19 or StealthMiner</li>
+            <li>Vonets WiFi adapter (for wireless connectivity)</li>
+            <li>Power cord</li>
+            <li>This user manual</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Technical Specifications</h2>
+        <table class="specs-table">
+            <tr>
+                <th>Specification</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Model</td>
+                <td>Single Board S19j Pro (upcycled)</td>
+            </tr>
+            <tr>
+                <td>Input Voltage</td>
+                <td>120V AC, 60Hz</td>
+            </tr>
+            <tr>
+                <td>Power Consumption</td>
+                <td>Varies: 450-850W depending on settings</td>
+            </tr>
+            <tr>
+                <td>Network Interface</td>
+                <td>Ethernet (built-in) + WiFi (via Vonets adapter)</td>
+            </tr>
+            <tr>
+                <td>Operating Temperature</td>
+                <td>32°F - 104°F (0°C - 40°C)</td>
+            </tr>
+            <tr>
+                <td>Heat Output</td>
+                <td>Equivalent to power consumption (450-850W of heat)</td>
+            </tr>
+            <tr>
+                <td>Noise Level</td>
+                <td>45-62 dB (tunable)</td>
+            </tr>
+            <tr>
+                <td>Management Software</td>
+                <td>Luxor firmware</td>
+            </tr>
+        </table>
+        
+        <div class="info-box">
+            <p><strong>About Upcycled E-Waste:</strong> Your ReHash Heating unit gives new life to bitcoin mining hardware that would otherwise become electronic waste. Each unit has been carefully refurbished and tested to provide reliable heating while contributing to the bitcoin network.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Setup Instructions</h2>
+
+        <div class="step">
+            <h3>Step 1: Physical Installation</h3>
+            <ol>
+                <li><strong>Choose your location carefully:</strong>
+                    <ul>
+                        <li>Place on a stable, level surface (floor or table)</li>
+                        <li>Ensure minimum 12 inches of clearance on all sides</li>
+                        <li>Position where airflow won't blow directly on people or pets</li>
+                        <li>Keep away from curtains, bedding, or flammable materials</li>
+                    </ul>
+                </li>
+                <li><strong>Check your electrical circuit:</strong>
+                    <ul>
+                        <li>Identify if you have a 15A or 20A circuit (check your circuit breaker)</li>
+                        <li>Calculate existing load: lights, computers, appliances on the same circuit</li>
+                        <li>Safe capacity: 15A circuit = max 1,440W continuous | 20A circuit = max 1,920W continuous</li>
+                        <li>Reserve headroom for your miner: Start at low power and increase gradually</li>
+                    </ul>
+                </li>
+                <li><strong>Connect power:</strong>
+                    <ul>
+                        <li>Use ONLY the included power cord</li>
+                        <li>Plug directly into a wall outlet (no extension cords or power strips)</li>
+                        <li>The miner will power on automatically - fans will start spinning</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Network Connectivity</h3>
+            <p>You have two options for connecting your miner to the internet:</p>
+            
+            <h4>Option A: Wired Ethernet (Recommended for best stability)</h4>
+            <ol>
+                <li>Connect an ethernet cable directly from your router to the miner's ethernet port</li>
+                <li>Skip to Step 3 - your miner is now online</li>
+            </ol>
+            
+            <h4>Option B: WiFi using Vonets adapter</h4>
+            <ol>
+                <li><strong>Connect the Vonets adapter:</strong>
+                    <ul>
+                        <li>Plug the Vonets ethernet cable into the miner's ethernet port</li>
+                        <li>Plug the Vonets power jack into the port on the miner</li>
+                    </ul>
+                </li>
+                <li><strong>Connect to the Vonets adapter:</strong>
+                    <ul>
+                        <li>On your phone or computer, look for a new WiFi network named something like <code>VONETS_XXXX</code>. It may take a few minutes for the Vonets network to appear</li>
+                        <li>Connect to this network: password: <code>12345678</code></li>
+                        <li>Open a web browser and go to: <code>http://192.168.254.254</code></li>
+                        <li>Default login: Username: <code>admin</code> / Password: <code>admin</code>. You may get a warning about an insecure website but it is safe to proceed</li>
+                    </ul>
+                </li>
+                <li><strong>Connect Vonets to your home WiFi:</strong>
+                    <ul>
+                        <li>Select "Wizard" in the Vonets interface</li>
+                        <li>The device will scan for available networks</li>
+                        <li>Select your home WiFi network from the list and click "Next"</li>
+                        <li>Enter your WiFi password</li>
+                        <li>Check the "Disable hotspot" option</li>
+                        <li>Click "Apply"</li>
+                        <li>Click "Reboot"</li>
+                        <li>The Vonets will reboot and connect to your WiFi. You can now close the Vonets configuration page</li>
+                        <li>Reconnect your phone/computer to your normal WiFi</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <div class="info-box">
+                <p><strong>Tip:</strong> After setup, the Vonets will remember your WiFi settings. If you need to reconfigure it later, you can perform a factory reset by holding in the button on the Vonets for 10 seconds then repeat the steps above.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Finding Your Miner's IP Address</h3>
+            <p>To access your miner's web interface, you need to find its IP address on your network. Each router will be different but in general these are the steps you'll need to follow:</p>
+            <ol>
+                <li><strong>Log into your router:</strong>
+                    <ul>
+                        <li>Open a web browser and go to your router's admin page (commonly <code>192.168.1.1</code> or <code>192.168.0.1</code>)</li>
+                        <li>Provide the router username and password. This is often found printed on the router itself</li>
+                        <li>Look for "Connected Devices", "Device List", or "DHCP Clients"</li>
+                        <li>Find a device named something like "Antminer", "Slim19", or "Vonets". The name may depend on your particular router</li>
+                        <li>Note the IP address (will look like <code>192.168.1.XXX</code>)</li>
+                    </ul>
+                </li>
+                <li><strong>Alternative method 1 - Network scanner app:</strong>
+                    <ul>
+                        <li>Use a network scanner app on your phone (like "Fing" or "Network Analyzer")</li>
+                        <li>Scan your network and look for devices with open port 80 or manufacturers like "Antminer"</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Accessing the Luxor Web Interface</h3>
+            <ol>
+                <li>Open a web browser on any device connected to your home network</li>
+                <li>Type the miner's IP address in the address bar (e.g., <code>http://192.168.1.150</code>)</li>
+                <li>You should see the Luxor firmware dashboard</li>
+            </ol>
+            
+            <div class="info-box">
+                <p><strong>Can't access the web interface?</strong> Make sure you're on the same network as the miner, check that the miner is powered on (fans spinning), and verify you have the correct IP address. See troubleshooting section below.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Set Up Mining Pool and Configure Your Miner</h3>
+            <p>To earn bitcoin while heating your space, you'll need to set up a mining pool account and configure your miner to connect to it. This guide uses Braiins Pool as an example due to its straightforward setup process and user-friendly interface, making it ideal for first-time miners. We have no affiliation with Braiins Pool and receive no compensation for this recommendation—you're free to use any mining pool you prefer.</p>
+            
+            <h4>Part A: Creating a Braiins Pool Account</h4>
+            <ol>
+                <li><strong>Visit Braiins Pool:</strong> Go to <a href="https://pool.braiins.com" target="_blank">pool.braiins.com</a> in your web browser</li>
+                <li><strong>Sign up:</strong> Click "Sign Up" or "Get Started"
+                    <ul>
+                        <li>Enter your email address and create a password</li>
+                        <li>Verify your email through the confirmation link sent to your inbox</li>
+                    </ul>
+                </li>
+                <li><strong>Add a bitcoin payout address:</strong> Once logged in, navigate to the <strong>Funds</strong> tab or Wallet icon
+                    <ul>
+                        <li>Under Payout Settings, add the bitcoin or lightning address where you want to receive mining rewards. We suggest using a Lightning address</li>
+                        <li>This should be an address from your personal bitcoin wallet (hardware wallet, mobile wallet, or exchange)</li>
+                        <li>Double-check the address—bitcoin transactions cannot be reversed</li>
+                    </ul>
+                </li>
+                <li><strong>Obtain pool connection information:</strong> In the Braiins Pool dashboard, find the "Workers" section
+                    <ul>
+                        <li>Click "Connect Workers" to display the information needed to configure your miner in the next step</li>
+                        <li><strong>Note the pool connection details:</strong></li>
+                    <ul>
+                        <li>Pool URL: <code>stratum+tcp://stratum.braiins.com:3333</code></li>
+                        <li>User ID: <code>YourUsername.WorkerName</code></li>
+                        <li>Password: typically <code>x</code>, <code>anything123</code>, or can be left blank</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <div class="info-box">
+                <p><strong>Alternative Pools:</strong> If you prefer to use a different mining pool (such as OCEAN, Luxor, CK Pool, or others), create an account with your chosen pool and obtain similar connection details. The configuration process in your miner will be the same—just use your pool's specific URL and credentials.</p>
+            </div>
+            
+            <h4>Part B: Configuring Your Miner</h4>
+            <p>Now that you have your pool account set up, configure your miner to connect to it:</p>
+            <ol>
+                <li>In the Luxor web interface on your miner, navigate to the <strong>"Pools"</strong> tab</li>
+                <li>Under the "default" pool group, press <strong>"+"</strong> to add a new pool</li>
+                <li><strong>Pool URL:</strong> Enter your pool's stratum URL
+                    <ul>
+                        <li>For Braiins Pool: <code>stratum+tcp://stratum.braiins.com:3333</code></li>
+                        <li>For other pools: Use the URL provided in your pool's documentation</li>
+                    </ul>
+                </li>
+                <li><strong>Worker name:</strong> Enter your full pool username and worker name
+                    <ul>
+                        <li>Braiins format: <code>YourUsername.WorkerName</code></li>
+                        <li>Example: <code>alice.slim19</code> or <code>bob.livingroom</code></li>
+                    </ul>
+                </li>
+                <li><strong>Password:</strong> Enter <code>x</code> or leave blank (most pools use a dummy password)</li>
+                <li>Click <strong>"Save"</strong> to store your pool configuration</li>
+                <li><strong>Optional - Add backup pools:</strong> You can add multiple pools and use the <strong>"^"</strong> button to reorder priority. If the primary pool becomes unavailable, your miner will automatically switch to the next pool in the list</li>
+                <li>There will be one pool configured from factory testing. Click the trash can icon next to that pool to remove it so only the pool(s) you have added remain</li>
+                <li><strong>Congratulations - You are now mining for heat and contributing to the bitcoin network!</strong></li>
+            </ol>
+            
+            <div class="info-box">
+                <p><strong>Monitoring your miner:</strong> Once configured, you can view your miner's status, hashrate, and earnings in your pool's dashboard (for Braiins Pool, visit pool.braiins.com and log in). It may take 5-10 minutes for statistics to appear. Your bitcoin earnings will accumulate and be paid out according to your pool's payout schedule and minimum threshold. Several pools, including Braiins, offer lightning payouts for amounts below the threshold.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>(Optional) Step 6: Adjusting Power and Noise Levels</h3>
+            <p>Your miner comes configured with a balance of power use (heat), hashrate, and noise level. <strong>The default values should be fine for most users</strong>. If you want more control over how much heat and power your miner uses, you can adjust the frequency and cooling settings with Luxor ATM (Advanced Thermal Management):</p>
+            
+            <ol>
+                <li>In the Luxor web interface, go to "Temperature & ATM"</li>
+                <li>Look for "ATM Max Profile" setting</li>
+                <li><strong>Frequency Range: 200MHz (minimum) to 450MHz (maximum)</strong></li>
+                <li>Recommended settings based on your needs:</li>
+            </ol>
+            
+            <table class="specs-table">
+                <tr>
+                    <th>Setting</th>
+                    <th>Frequency</th>
+                    <th>Approximate Power</th>
+                    <th>Use Case</th>
+                </tr>
+                <tr>
+                    <td>Low Heat</td>
+                    <td>250 MHz</td>
+                    <td>450-550W</td>
+                    <td>Mild heating, quiet operation, shared circuits</td>
+                </tr>
+                <tr>
+                    <td>Medium Heat</td>
+                    <td>325-375 MHz</td>
+                    <td>600-750W</td>
+                    <td>Moderate heating, balanced performance</td>
+                </tr>
+                <tr>
+                    <td>Maximum Heat</td>
+                    <td>400-450 MHz</td>
+                    <td>750-850W</td>
+                    <td>Maximum heating, requires dedicated circuit</td>
+                </tr>
+            </table>
+            
+            <div class="warning-box">
+                <h2>Power Circuit Warning</h2>
+                <ul>
+                    <li><strong>Start low and increase gradually.</strong> Begin at 250-300 MHz and monitor your circuit.</li>
+                    <li><strong>15A circuit:</strong> Do not exceed 350-375 MHz if other devices are on the same circuit. Maximum safe continuous draw is approximately 1,440W.</li>
+                    <li><strong>20A circuit:</strong> Can safely run up to 450 MHz with some headroom. Maximum safe continuous draw is approximately 1,920W.</li>
+                    <li><strong>Warning signs of overload:</strong> Flickering lights, warm outlet, tripped breaker. If any occur, immediately reduce power settings or move to a different circuit.</li>
+                </ul>
+            </div>
+            
+            <ol start="5">
+                <li>Adjust the frequency to the desired value</li>
+                <li>Click "Save" under the "Advanced Thermal Management" section</li>
+                <li>Monitor for 10-15 minutes to ensure stable operation</li>
+            </ol>
+            <div class="info-box">
+                <p><strong>Manual fan setting</strong> If you prefer a constant fan speed, you may set it manually on the "Temperature & ATM" page. Your miner will then determine the maximum performance profile possible at the set fan speed. This is a good approach to get the best performance while optimizing for noise level.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Safety Guidelines</h2>
+        
+        <h3>During Operation:</h3>
+        <ul>
+            <li><strong>Never cover or block vents</strong> - this will cause overheating and damage</li>
+            <li><strong>Monitor noise and temperature</strong> - unusual sounds or excessive heat may indicate a problem</li>
+            <li><strong>Keep away from water</strong> - do not use in bathrooms, laundry rooms, or wet areas</li>
+            <li><strong>Supervise around children and pets</strong> - hot exhaust air can cause burns</li>
+            <li><strong>Regular inspection</strong> - check power cord for damage monthly</li>
+        </ul>
+        
+        <h3>Maintenance:</h3>
+        <ul>
+            <li><strong>Dust cleaning:</strong> Unplug and use compressed air to clean heatsink fins and fans every 3-6 months</li>
+            <li><strong>Fan inspection:</strong> Check that fans spin freely and don't make grinding noises</li>
+            <li><strong>Connection check:</strong> Ensure network cables and power connections remain secure</li>
+        </ul>
+        
+        <h3>When to Shut Down:</h3>
+        <ul>
+            <li>Leaving home for extended periods</li>
+            <li>During thunderstorms or power surges</li>
+            <li>If you smell burning or see smoke</li>
+            <li>If the circuit breaker trips repeatedly</li>
+            <li>For cleaning or maintenance</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting</h2>
+        
+        <h3>Miner won't power on:</h3>
+        <ul>
+            <li>Check that power cord is fully inserted at both ends</li>
+            <li>Verify outlet has power (test with another device)</li>
+            <li>Check circuit breaker hasn't tripped</li>
+            <li>Try a different outlet on a different circuit</li>
+        </ul>
+        
+        <h3>Can't connect to web interface:</h3>
+        <ul>
+            <li>Verify miner is powered on (fans should be spinning)</li>
+            <li>Confirm you're on the same network</li>
+            <li>Double-check IP address from router's device list</li>
+            <li>Try accessing from a different browser or device</li>
+            <li>For WiFi: ensure Vonets successfully connected to your network</li>
+            <li>Reset to wired ethernet connection to troubleshoot</li>
+        </ul>
+        
+        <h3>Miner not mining / "Dead" status:</h3>
+        <ul>
+            <li>Verify pool URL and worker credentials are correct</li>
+            <li>Check that internet connection is active</li>
+            <li>Try switching to a different pool to test</li>
+            <li>Restart the miner from the web interface or by power cycling</li>
+        </ul>
+        
+        <h3>Excessive noise or vibration:</h3>
+        <ul>
+            <li>Ensure miner is on a stable, level surface</li>
+            <li>Check that nothing is touching the fans</li>
+            <li>Clean dust from heatsink and fans</li>
+            <li>Reduce frequency/power if operating at maximum</li>
+        </ul>
+
+        <h3>Fan speed inconsistent</h3>
+        <ul>
+            <li>It is normal for fans to ramp up and down during initialization and tuning</li>
+            <li>Fan speed will stabilize after 20-30 minutes of runtime</li>
+            <li>Check frequency/power settings and reduce if necessary</li>
+        </ul>
+        
+        <h3>Overheating or shutdowns:</h3>
+        <ul>
+            <li>Check for blocked airflow - remove any obstructions</li>
+            <li>Ensure adequate clearance (minimum 12 inches all sides)</li>
+            <li>Reduce operating frequency to lower heat output</li>
+            <li>Clean dust from heatsink fins</li>
+            <li>Verify ambient temperature is within operating range (32-104°F)</li>
+        </ul>
+        
+        <h3>Circuit breaker tripping:</h3>
+        <ul>
+            <li>Immediately reduce frequency/power settings</li>
+            <li>Calculate total load on circuit - remove other devices</li>
+            <li>Consider moving miner to a dedicated circuit</li>
+            <li>Do not exceed 80% of circuit capacity</li>
+        </ul>
+        
+        <div class="info-box">
+            <p><strong>Need more help?</strong> We're happy to assist with troubleshooting beyond the 7-day DOA warranty period. Contact us at <a href="mailto:contact@rehashheating.com">contact@rehashheating.com</a> or on Nostr <strong>@rehashheating</strong> with a description of the issue, your miner model, and what you've already tried. While we can't guarantee repairs after the warranty period, we'll do our best to help you get your unit running smoothly.</p>
+        </div>
+    </div>
+
+    <div class="disclaimer">
+        <h2>Legal Disclaimer and Warranty Information</h2>
+        
+        <p><strong>QUALITY ASSURANCE:</strong> Each ReHash Heating unit undergoes thorough testing and performance tuning before shipping to ensure it meets our quality standards and operates reliably as a heating appliance.</p>
+        
+        <p><strong>LIMITED 7-DAY WARRANTY:</strong> We provide a 7-day Dead on Arrival (DOA) warranty from the date of delivery. If your unit fails to power on or function upon arrival, contact us immediately for a replacement or refund. This warranty covers manufacturing defects and failures present at the time of delivery only. After the 7-day period, all sales are final and the product is sold AS-IS.</p>
+        
+        <p><strong>WARRANTY EXCLUSIONS:</strong> This limited warranty does not cover:</p>
+        <ul>
+            <li>Damage from improper installation, misuse, or failure to follow safety guidelines</li>
+            <li>Electrical issues caused by inadequate circuit capacity or power quality</li>
+            <li>Normal wear and tear, including fan noise or dust accumulation</li>
+            <li>Issues arising after the 7-day DOA period</li>
+            <li>Performance variations or mining revenue fluctuations</li>
+        </ul>
+        
+        <p><strong>LIMITATION OF LIABILITY:</strong> ReHash Heating and its proprietors assume no liability for any damage, injury, or loss resulting from the use, misuse, or inability to use this product beyond the limited 7-day DOA warranty period. This includes but is not limited to:</p>
+        <ul>
+            <li>Electrical fires, shocks, or circuit damage</li>
+            <li>Property damage from heat or electrical issues</li>
+            <li>Personal injury from hot surfaces or electrical hazards</li>
+            <li>Loss of bitcoin mining revenue or pool connectivity issues</li>
+            <li>Damage to other equipment on the same electrical circuit</li>
+            <li>Any consequential, incidental, or indirect damages</li>
+        </ul>
+        
+        <p><strong>USER RESPONSIBILITY:</strong> By using this product, you acknowledge that:</p>
+        <ul>
+            <li>You are responsible for ensuring your electrical system can safely handle the load</li>
+            <li>You understand the risks of operating high-powered electrical equipment</li>
+            <li>You will follow all safety guidelines and local electrical codes</li>
+            <li>You accept all risks associated with bitcoin mining and cryptocurrency</li>
+            <li>After the 7-day DOA period, you are using this equipment at your own risk</li>
+        </ul>
+        
+        <p><strong>ONGOING SUPPORT:</strong> While our warranty is limited to 7 days for DOA units, we remain committed to helping our customers succeed. We're happy to provide troubleshooting assistance, technical support, and guidance throughout your ownership experience. Please contact us at <a href="mailto:contact@rehashheating.com">contact@rehashheating.com</a> or on Nostr <strong>@rehashheating</strong> if you experience issues or have questions.</p>
+        
+        <p><strong>ELECTRICAL CODE COMPLIANCE:</strong> It is your responsibility to ensure this installation complies with local electrical codes and regulations. Consider consulting a licensed electrician if you're uncertain about your electrical system's capacity.</p>
+    </div>
+
+    <div class="section">
+        <h2>Additional Resources</h2>
+        <ul>
+            <li><strong>ReHash Heating Website:</strong> Visit our site for updates, FAQs, and contact information</li>
+            <li><strong>Community Support:</strong> Join bitcoin mining forums and communities for tips from experienced users</li>
+            <li><strong>Electrical Safety:</strong> Consult a licensed electrician if you have questions about your home's electrical capacity</li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 50px; padding: 30px; background: #f8f9fa; border-radius: 12px;">
+        <p style="font-size: 1.1em; color: #2c3e50; margin-bottom: 10px;"><strong>Thank you for choosing ReHash Heating!</strong></p>
+        <p style="color: #6c757d;">You're helping reduce e-waste while earning bitcoin and heating your space.</p>
+        <p style="color: #6c757d; margin-top: 15px;">For questions or support, email us at <a href="mailto:contact@rehashheating.com" style="color: #f7931a;">contact@rehashheating.com</a> or find us on Nostr:</p>
+        <p style="color: #6c757d; margin-top: 5px;"><strong>@rehashheating</strong></p>
+        <img src="nostr-qr.png" alt="Nostr QR Code" style="width: 150px; height: 150px; margin-top: 10px;">
+        <p style="color: #999; font-size: 0.8em; margin-top: 5px; word-break: break-all;">npub17u3tzvwjkqat3nusk0uqlqtrwd00hj0g94vj57gh873wy52qptlsn2mh3l</p>
+    </div>
+</body>
+</html>
